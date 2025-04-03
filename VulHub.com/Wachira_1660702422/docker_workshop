@@ -1,0 +1,6 @@
+ลิ้งค์เข้า
+docker-test-wachira-aqgtaua0cxd6gscu.australiacentral-01.azurewebsites.net
+เว็บใน Docker Hub
+https://hub.docker.com/r/vulhub/nextjs/tags
+ลิ้งค์ Tags
+docker pull vulhub/nextjs:15.2.2
