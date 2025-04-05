@@ -1,4 +1,49 @@
-เว็บใน Docker Hub
+#เซิร์ฟเวอร์หลัก
+const express = require("express");
+const app = express();
+const PORT = process.env.PORT || 80;
+
+app.get("/", (req, res) => {
+    res.send("<h1>Hello from Azure!</h1>");
+});
+
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+#สร้าง image Docker
+# ใช้ Node.js เวอร์ชัน 18
+FROM node:18-alpine
+# ตั้งค่าโฟลเดอร์ทำงานใน Container
+WORKDIR /app
+# คัดลอกไฟล์ไปยัง Container
+COPY package*.json ./
+RUN npm install
+COPY . .
+# เปิดพอร์ต 80 (หรือพอร์ตอื่นที่ต้องการ)
+EXPOSE 80
+# รันแอป
+CMD ["node", "server.js"]
+#ไฟล์จัดการ dependencies
+{
+  "name": "azure-sample-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js app for Azure Web App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
+#รันในเตรื่อง Docker
+docker build -t my-azure-app .
+docker run -p 8080:80 my-azure-app
+#เชื่อมต่อกับ GitHub
+git remote add origin https://github.com/USERNAME/azure-sample-app.git
+git branch -M main
+git push -u origin main
+#เว็บใน Docker Hub
 https://hub.docker.com/r/vulhub/nextjs/tags
-ลิ้งค์ Tags
+#ลิ้งค์ Tags
 docker pull vulhub/nextjs:15.2.2
